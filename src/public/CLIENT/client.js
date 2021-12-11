@@ -4,14 +4,13 @@ class Client {
 
         this.Main = _main;
 
-        // Sockets from client
-        this.Main.IOServer.on("connection", function(socket){
+        this.Main.FunctionsToAddToIOServerClients["volume_get3"] = function(volume){
+            SELF.Main.IOClient.emit("volume_get4", volume);
+        };
 
-        });
-
-        // Sockets from server
-        this.Main.IOClient.on("abc", function(_token, _autoplay){
-
+        // 2 Sockets from server
+        this.Main.IOClient.on("volume_get1", function(){
+            SELF.Main.IOServer.sockets.emit("volume_get2");
         });
     }
 }

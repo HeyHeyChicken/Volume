@@ -7,9 +7,18 @@ class Facebook extends LIBRARIES.Skill {
     super(_main, _settings);
     const SELF = this;
 
-    this.Main.Manager.addAction("Facebook.post", function(_intent, _socket){
-      // Here you will add an action when the user want to post anything on Facebook.
-      // You can access utterances variables like this : _intent.Variables.text
+    SELF.Main.FunctionsToAddToIOClientClients["volume_get4"] = function(_volume){
+      const MESSAGE = _volume + "%";
+      this.emit("sc_message", {
+        Content: MESSAGE,
+        FromServer: true
+      });
+      SELF.Main.TTS(this, MESSAGE);
+    };
+
+    // 1 L'utilisateur demande à connaitre la valeur du volume du client.
+    this.Main.Manager.addAction("Volume.get", function(_intent, _socket){
+      _socket.emit("volume_get1");
     });
   }
 }
